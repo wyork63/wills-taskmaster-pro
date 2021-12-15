@@ -192,6 +192,9 @@ $(".card .list-group").sortable({
   activate: function(event) {
     console.log("activate", this);
   },
+  deactivate: function(event) {
+    console.log("deactivate", this);
+  },
   over: function(event) {
     console.log("over", event.target);
   },
@@ -199,6 +202,7 @@ $(".card .list-group").sortable({
     console.log("out", event.target);
   },
   update: function(event) {
+    // loop over current set of children in sortable list
     var tempArr = [];
 
     $(this).children().each(function(){
@@ -217,6 +221,7 @@ $(".card .list-group").sortable({
       date: date
     });
   });
+  console.log(tempArr);
   // trim down list's ID to match object property
   var arrName = $(this)
   .attr("id")
@@ -229,6 +234,22 @@ $(".card .list-group").sortable({
     console.log(tempArr);
   }
 });
+// jquery function that removes the task when dropped over the drop here to remove
+$("#trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+    console.log("drop");
+  },
+  over: function(event, ui) {
+    console.log("over");
+  },
+  out: function(event, ui) {
+    console.log("out");
+  }
+});
+
 
 
 // load tasks for the first time
