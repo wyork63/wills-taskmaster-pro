@@ -46,9 +46,7 @@ var saveTasks = function() {
 };
 
 $(".list-group").on("click", "p", function() {
-  var text = $(this)
-    .text()
-    .trim();
+  var text = $(this).text().trim();
   var textInput = $("<textarea>")
   .addClass("form-control")
   .val(text);
@@ -91,9 +89,7 @@ $(this).replaceWith(taskP);
 // due date was clicked
 $(".list-group").on("click", "span", function() {
   // get current text
-  var date = $(this)
-    .text()
-    .trim();
+  var date = $(this).text().trim();
 
   // create new input element
   var dateInput = $("<input>")
@@ -104,13 +100,17 @@ $(".list-group").on("click", "span", function() {
   // swap out elements
   $(this).replaceWith(dateInput);
 
+  dateInput.datepicker({
+    minDate: 1
+  });
+
   // automatically focus on new element
   dateInput.trigger("focus");
 });
 
 // copied from lesson 5.1.7
 // value of due date was changed
-$(".list-group").on("blur", "input[type='text']", function() {
+$(".list-group").on("change", "input[type='text']", function() {
   // get current text
   var date = $(this)
     .val()
@@ -250,6 +250,9 @@ $("#trash").droppable({
   }
 });
 
+$("#modalDueDate").datepicker({
+  minDate: 1
+}); 
 
 
 // load tasks for the first time
